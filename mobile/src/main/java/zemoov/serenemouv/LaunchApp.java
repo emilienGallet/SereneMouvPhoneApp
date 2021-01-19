@@ -1,7 +1,13 @@
 package zemoov.serenemouv;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 public class LaunchApp extends AppCompatActivity {
 
@@ -9,5 +15,15 @@ public class LaunchApp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_app);
+
+        Animation animRotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+        ImageView roue = (ImageView) findViewById(R.id.roueImg);
+        roue.startAnimation(animRotate);
+
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        for (int i =0 ; i < 100 ; i++){
+            progressBar.incrementProgressBy(1);
+        }
+
     }
 }
