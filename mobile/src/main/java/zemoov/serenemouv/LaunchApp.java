@@ -1,5 +1,6 @@
 package zemoov.serenemouv;
 
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,5 +26,7 @@ public class LaunchApp extends AppCompatActivity {
             progressBar.incrementProgressBy(1);
         }
 
+        Intent launchActivity = new Intent(LaunchApp.this,MenuActivity.class);
+        startActivity(launchActivity);
     }
 }
