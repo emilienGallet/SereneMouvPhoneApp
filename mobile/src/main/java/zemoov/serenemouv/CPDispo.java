@@ -1,15 +1,17 @@
 package zemoov.serenemouv;
+import com.graphhopper.directions.api.client.model.RouteResponse;
+
+
+
 
 public class CPDispo {
     CPDispo(){}
-
-
     //Donnnées en entrée:
     // liste de données des températures prévisionnelles sur la zone
     //charge actuelle de la batterie en Watt
     //poids transporté par le véhicule en kilogramme
     //sortie: distance maximale pouvant être parcourue en km
-    meth1(){
+    void meth1(){
         int charge;
         int masse;
         int poid;
@@ -25,7 +27,7 @@ public class CPDispo {
         // ici en attente de données sur le modèle on le considère à 0,6583
         double SCx=0.6583;
 
-        charge=masse*poid*k*v +1/2*p*SCx*v*3;
+        //charge=masse*poid*k*v +1/2*p*SCx*v*3;
     }
 
     //Données en entrée:
@@ -35,7 +37,7 @@ public class CPDispo {
     //poids transporté par le véhicule en kilogramme
     //sortie:
     // charge necessaire pour réaliser le trajet
-    meth2(){}
+    void meth2(){}
 
     //Données en entrée:
     // liste de données de données du trajet
@@ -45,7 +47,7 @@ public class CPDispo {
     //sortie:
     // charge necessaire pour réaliser le trajet
     // booléen indiquant si le trajet peut être finialisé
-    meth3(){}
+    void meth3(){}
 
 
 
