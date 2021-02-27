@@ -31,7 +31,7 @@ public class Graph {
 		 * https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 		 */
 		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlTravel(start, end)).get().build();
+		Request request = new Request.Builder().url(urlTravel(start, end/*TODO EDIT THIS HERE paramètre-7*/)).get().build();
 		Response response = null;
 		String s;
 		try {
@@ -39,7 +39,7 @@ public class Graph {
 			/* END code from graphHooper */
 			s = response.body().string();
 			JSONObject json = new JSONObject(s);
-			System.err.println(json.toString());
+			//System.err.println(json.toString());
 			Integer time = tempsDeRoute(json);
 			JSONArray jsArry = pointsListCoordinates(json);
 			//TODO convert JSONArray to ArrayList<Localization>
@@ -61,12 +61,13 @@ public class Graph {
 		ArrayList<Localisation> list = new ArrayList<Localisation>();
 		JSONArray tmp;
 		Localisation point;
-		Double latitude,longitude;
+		Double latitude,longitude,hauteur;
 		for (int i = 0; i < jsArry.length(); i++) {
 			tmp =jsArry.getJSONArray(i);
 			latitude = tmp.getDouble(1);
 			longitude =tmp.getDouble(0);
-			point = new Localisation("", latitude, longitude);
+			hauteur =tmp.getDouble(2);
+			point = new Localisation("", latitude, longitude,hauteur);
 			list.add(point);
 		}
 		return list;
@@ -84,8 +85,9 @@ public class Graph {
 		url += "point=" + start.getLatitude() + "," + start.getLongitude();
 		url += "&point=" + end.getLatitude() + "," + end.getLongitude();
 		url += "&points_encoded=false";
-		url += "&vehicle=car" + "&locale=en";
+		url += "&vehicle=car" + "&locale=fr";
 		url += "&turn_costs=true";
+		url += "&elevation=true";
 		url += "&key=" + apiKey;
 		return url;
 	}
@@ -101,17 +103,6 @@ public class Graph {
 	
 	private static Integer tempsDeRoute(JSONObject o) throws JSONException {
 		return o.getJSONArray("paths").getJSONObject(0).getInt("time");
-	}
-
-	public static void main(String[] args) {
-		/*
-		 * Test of trajectPlan
-		 */
-		Localisation carnot = new Localisation("UJM Carnot", 45.45218, 4.38656);
-		Localisation metare = new Localisation("UJM Metare", 45.42331, 4.42541);
-		System.out.println(urlTravel(carnot, metare));
-		System.out.println(planTraject(carnot, metare, null).getPoints());
-		
 	}
 
 }

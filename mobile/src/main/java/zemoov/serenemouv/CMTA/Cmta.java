@@ -3,12 +3,13 @@ package zemoov.serenemouv.CMTA;
 import java.util.ArrayList;
 
 import zemoov.serenemouv.CMTA.Exceptions.*;
+import zemoov.serenemouv.CPDispo;
 
 /**
  * @author emilien
  */
 public class Cmta {
-    Preference saPreference; // Préférence du Trajet voir Preference.java
+    // REMOVED Preference saPreference; // Préférence du Trajet voir Preference.java
     Vehicule engage; // Le véhicule qui va être utiliser pour le trajet.
     Integer puissanceMin; // La puissance minimal de rechargement du véhicule exigé par l'utilisateur
     Integer puissanceMax; // La puissance maximal de rechargement du véhicule exigé par l'utilisateur
@@ -17,35 +18,84 @@ public class Cmta {
     Integer nbPersonnes; // Le nombre de personnes présente dans le véhicule pour ce trajet.
     Boolean gotOnlineCB; // Vérifie si l'utilisateur dispose d'une carte bancaire pour payer en ligne
 
-    Cmta(Integer nombreDePersonnes,Vehicule engage,ArrayList<Operator> badgesPossible,Trajet leTrajet,Integer bagages) throws CMTAException, CMTAWarning {
-        // On vérifie si le nombre de personnes est possible dans le véhicule
-        engage.avaiblePlace(nombreDePersonnes);
-        // On vérifie si il ne risque pas d'avoir un dépacement du poid maximal autorisé
-        engage.avaiableWeight(bagages);
-
-
+    public Cmta(Vehicule leVehicule, Integer puissanceMax, Integer puissanceMin,
+                Trajet leTrajet, ArrayList<Operator> badgesPossible,
+                Integer nombreDePersonnes, Boolean gotOnlineCB) {
+        super();
+        //TODO
     }
 
-    static Cmta build(Integer nombreDePersonnes,ArrayList<Operator> badgesPossible,Vehicule engage,
-         Localisation start,Localisation end,ArrayList<Localisation> step, Integer bagages)
-            throws CMTAException{
+    /**
+     * Basique build possible pour crée un CMTA
+     * @param nombreDePersonnes
+     * @param bagages
+     * @param saPreference
+     * @param badgesPossible
+     * @param leVehicule
+     * @param puissanceMax en Kw
+     * @param puissanceMin en Kw
+     * @param start
+     * @param end
+     * @param step
+     * @param gotOnlineCB
+     * @return
+     * @throws CMTAException
+     * @throws CMTAWarning
+     */
+    private static Cmta build(Integer nombreDePersonnes, Integer bagages, Preference saPreference,
+                      ArrayList<Operator> badgesPossible, Vehicule leVehicule,
+                      Integer puissanceMax,Integer puissanceMin,
+                      Localisation start, Localisation end, ArrayList<Localisation> step,
+                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB)
+            throws CMTAException,CMTAWarning {
 
             Trajet leTrajet = null;
             //TODO Vérifier le trajet si il est possible
-
+            //
+            leTrajet = Trajet.trajectBuilder(start,end,step,saPreference,carrefourDangereux,travauxSector);//Traitement-1
             //SI OUI on continue
-        Cmta a = null;
-        try {
-            a= new Cmta(nombreDePersonnes,engage,badgesPossible,leTrajet,bagages);
-        } catch (CMTAWarning cmtaWarning) {
-            cmtaWarning.printStackTrace();
-        }
-        return a;
+            //TODO Vérifier si le trajet est accesible
+            // On vérifie si le nombre de personnes est possible dans le véhicule
+            leVehicule.avaiblePlace(nombreDePersonnes);
+            // On vérifie si il ne risque pas d'avoir un dépacement du poid maximal autorisé
+            leVehicule.avaiableWeight(bagages);
+
+
+            // On demande au module CP Dispo si le trajet peut être fait
+            // !!!!!!!!!!DIRECTEMENT !!!!!!!!!!!
+            try{
+                CPDispo.estAccessible(leTrajet,leVehicule);
+            }catch (CMTAWarning warning){
+                CPDispo.estAccessibleParRecharge(leTrajet,leVehicule,badgesPossible);
+                throw warning;
+            }
+            return new Cmta(leVehicule,puissanceMax,puissanceMin,leTrajet,badgesPossible,nombreDePersonnes,gotOnlineCB);
+            //CMTAException si il est innacessible
     }
 
-    static Cmta build(Integer nombreDePersonnes,ArrayList<Operator> badgesPossible,Vehicule engage,
-         Localisation start,Localisation end,ArrayList<Localisation> step) throws CMTAException{
-        return build(nombreDePersonnes,badgesPossible,engage,start,end,step,0);
+    /**
+     * Build an CMTa without know if they go bagages or not
+     * @param nombreDePersonnes
+     * @param saPreference
+     * @param badgesPossible
+     * @param leVehicule
+     * @param puissanceMax en Kw
+     * @param puissanceMin en Kw
+     * @param start
+     * @param end
+     * @param step
+     * @param gotOnlineCB
+     * @return Cmta
+     * @throws CMTAException
+     * @throws CMTAWarning
+     */
+    static Cmta build(Integer nombreDePersonnes, Preference saPreference,
+                      ArrayList<Operator> badgesPossible, Vehicule leVehicule,
+                      Integer puissanceMax,Integer puissanceMin,
+                      Localisation start, Localisation end, ArrayList<Localisation> step,
+                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB) throws CMTAException, CMTAWarning{
+            //TODO MAYBE changer la valeur de Bagages par la valeur du PTAC (Masse Max autoriser)
+            return build(nombreDePersonnes,0,saPreference,badgesPossible,leVehicule,puissanceMax,puissanceMin,start,end,step,carrefourDangereux,travauxSector,gotOnlineCB);
     }
     /**
      * Numéro de la spécification principal: paramètre-1
@@ -57,29 +107,16 @@ public class Cmta {
         if (preference.equalsIgnoreCase("le plus rapide")) {
             choisirPreferenceTrajet(Preference.FAST);
         }
-        if (preference.equalsIgnoreCase("le plus économe")) {
-            choisirPreferenceTrajet(Preference.ECO);
-        }
-        if (preference.equalsIgnoreCase("équilibré")) {
+        else if (preference.equalsIgnoreCase("équilibré")) {
             choisirPreferenceTrajet(Preference.NORMAL);
         }
-    }
-
-    void choisirPreferenceTrajet(Preference p) {
-        this.saPreference = p;
-    }
-
-    void trouverTrajet(){
-        Trajet t = null;
-        try {
-            t = new Trajet(saPreference);
-        }catch(TrajectException err){
-            //TODO afficher que le trajet n'est pas possible ou accesible
-            err.printStackTrace();
-            return;
+        else{
+            choisirPreferenceTrajet(Preference.ECO);
         }
-        this.leTrajet = t;
+
+    }
+    void choisirPreferenceTrajet(Preference p) {
+        this.leTrajet.saPreference =p;
     }
 
-    
 }

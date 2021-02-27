@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 public class CMTAWarning extends Exception{
-    CMTAWarning(String s){
+    public CMTAWarning(String s){
         try {
             printStackTrace(new PrintWriter(s));
         } catch (

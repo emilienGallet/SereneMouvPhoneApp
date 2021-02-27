@@ -3,8 +3,9 @@ package zemoov.serenemouv.CMTA;
 import java.util.ArrayList;
 
 /**
- * Source code taken from IConvoit (https://github.com/emilienGallet/IConvoit). And also is in part my code ^_^
+ * Source code taken and edit from IConvoit (https://github.com/emilienGallet/IConvoit). And also is in part my code ^_^
  * @author Chrithian, reviewed by emilien
+ * @editor for the project Émilien
  * @version 0.2
  */
 public class Localisation {
@@ -13,6 +14,7 @@ public class Localisation {
     private ArrayList<Localisation> subLocalization;
     private Double longitude;
     private Double latitude;
+    Double hauteur;
 
 
 
@@ -22,7 +24,7 @@ public class Localisation {
      * @param latitude
      * @param longitude
      */
-    public Localisation(String nameLocation, double latitude,double longitude) {
+    public Localisation(String nameLocation, double latitude,double longitude, double hauteur) {
         super();
         if (!nameLocation.isEmpty()) {
             this.setNameLocation(nameLocation);
@@ -31,6 +33,7 @@ public class Localisation {
         }
         this.setLongitude(longitude);
         this.setLatitude(latitude);
+        this.hauteur = hauteur;
     }
 
     public Localisation() {
