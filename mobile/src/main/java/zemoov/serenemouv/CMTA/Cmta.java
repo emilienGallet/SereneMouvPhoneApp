@@ -66,6 +66,7 @@ public class Cmta {
             try{
                 CPDispo.estAccessible(leTrajet,leVehicule);
             }catch (CMTAWarning warning){
+                //TODO prendre la liste des bornes de recharge possible sur le trajet
                 CPDispo.estAccessibleParRecharge(leTrajet,leVehicule,badgesPossible);
                 throw warning;
             }
