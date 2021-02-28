@@ -15,10 +15,11 @@ public class Path {
 	private List<Localisation> points;
 	public Joules necessaire;//puissanceParSecode
 	private Integer trajectTime;
-	Boolean carrefourDangereux;
-	Boolean travauxSector;
-	Integer score;
-	Boolean asPeage;
+	public Boolean carrefourDangereux;
+	public Boolean travauxSector;
+	public Integer score;
+	public Boolean asPeage;
+	public double KwParHNecessaire;
 	public Path() {
 		
 	}

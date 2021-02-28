@@ -14,8 +14,8 @@ public class Localisation {
     private ArrayList<Localisation> subLocalization;
     private Double longitude;
     private Double latitude;
-    Double hauteur;
-
+    public Double hauteur;
+    public Temperature actuelle;
 
 
     /**

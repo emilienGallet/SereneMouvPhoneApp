@@ -16,10 +16,10 @@ import zemoov.serenemouv.CMTA.Exceptions.TrajectException;
  * En effet cette subdivision est appeler un Path dont la somme de celles-ci forme le Path global soit le Trajet.
  */
 public class Trajet {
-    Preference saPreference;
-    Path unChemin;//Contien une liste de localisation(depart,arrivée inclut) +temps de trajet.
-    LocalDateTime timeStart;
-    Integer estAccesible;//[0 = ; 1 = Attention ; 2 = Oui et ce quelquesoit la vitesse dans la limite légale]
+    public Preference saPreference;
+    public Path unChemin;//Contien une liste de localisation(depart,arrivée inclut) +temps de trajet.
+    public LocalDateTime timeStart;
+    public Integer estAccesible;//[0 = ; 1 = Attention ; 2 = Oui et ce quelquesoit la vitesse dans la limite légale]
 
     public Trajet(Preference saPreference) throws TrajectException {
         super();
