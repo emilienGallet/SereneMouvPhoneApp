@@ -1,13 +1,8 @@
-package zemoov.serenemouv;
+package zemoov.serenemouv.GBE;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.content.Context;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class csvFile {
     int column=0;

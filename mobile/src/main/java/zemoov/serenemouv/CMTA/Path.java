@@ -68,4 +68,12 @@ public class Path {
 		this.score = score;
 	}
 
+	public Localisation getDebut(){
+		return this.points.get(0);
+
+	}
+	public Localisation getFin(){
+		return this.points.get(this.getPoints().size()-1);
+	}
+
 }

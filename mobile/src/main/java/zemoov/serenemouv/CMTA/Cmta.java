@@ -3,7 +3,9 @@ package zemoov.serenemouv.CMTA;
 import java.util.ArrayList;
 
 import zemoov.serenemouv.CMTA.Exceptions.*;
-import zemoov.serenemouv.CPDispo;
+import zemoov.serenemouv.CPDispo.CPDispo;
+import zemoov.serenemouv.GBE.Borne;
+import zemoov.serenemouv.GBE.GBE;
 
 /**
  * @author emilien
@@ -32,7 +34,7 @@ public class Cmta {
      * @param saPreference
      * @param badgesPossible
      * @param leVehicule
-     * @param puissanceMax en Kw
+     * @param puissanceMax
      * @param puissanceMin en Kw
      * @param start
      * @param end
@@ -54,7 +56,7 @@ public class Cmta {
             //
             leTrajet = Trajet.trajectBuilder(start,end,step,saPreference,carrefourDangereux,travauxSector);//Traitement-1
             //SI OUI on continue
-            //TODO Vérifier si le trajet est accesible
+            //DONE Vérifier si le trajet est accesible
             // On vérifie si le nombre de personnes est possible dans le véhicule
             leVehicule.avaiblePlace(nombreDePersonnes);
             // On vérifie si il ne risque pas d'avoir un dépacement du poid maximal autorisé
@@ -63,15 +65,33 @@ public class Cmta {
 
             // On demande au module CP Dispo si le trajet peut être fait
             // !!!!!!!!!!DIRECTEMENT !!!!!!!!!!!
+            Cmta configUser;
             try{
-                CPDispo.estAccessible(leTrajet,leVehicule);
+                CPDispo.estAccessible(leTrajet.unChemin,leVehicule);
+                configUser = new Cmta(leVehicule,puissanceMax,puissanceMin,leTrajet,badgesPossible,nombreDePersonnes,gotOnlineCB);
             }catch (CMTAWarning warning){
+
                 //TODO prendre la liste des bornes de recharge possible sur le trajet
-                CPDispo.estAccessibleParRecharge(leTrajet,leVehicule,badgesPossible);
+                configUser = new Cmta(leVehicule,puissanceMax,puissanceMin,leTrajet,badgesPossible,nombreDePersonnes,gotOnlineCB);
+                ArrayList<Borne> listeBorneUtilisable = GBE.bornesAutourDuTrajet(configUser);
+                ArrayList<Localisation> etapesDeRecharge = new ArrayList<Localisation>();
+                Trajet boutDeTrajet = Trajet.trajectBuilder(configUser);//On construit une Grande étape
+
+                CPDispo.estAccessibleParRecharge(leTrajet.unChemin,leVehicule,badgesPossible);
                 throw warning;
             }
-            return new Cmta(leVehicule,puissanceMax,puissanceMin,leTrajet,badgesPossible,nombreDePersonnes,gotOnlineCB);
+            return configUser;
             //CMTAException si il est innacessible
+    }
+
+    private static Borne borneLaPlusProche(ArrayList<Borne> listeBorne,Vehicule leVehicule) {
+        ArrayList<Borne> bornePossible = new ArrayList<Borne>();
+        for (Borne b:listeBorne) {
+            if (b.peuxRechargerIci(leVehicule)){
+                bornePossible.add(b);
+            }
+        }
+        return null;//TODO
     }
 
     /**
