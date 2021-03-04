@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=F5:46:A0:96:A9:00:7C:58:7E:57:A3:1F:E0:B2:CD:DA:D5:C5:C2:D8%3Bzemoov.serenemouv
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    zemoov.serenemouv
+
+    SHA-1 certificate fingerprint:
+    F5:46:A0:96:A9:00:7C:58:7E:57:A3:1F:E0:B2:CD:DA:D5:C5:C2:D8
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDdI2am0kUhsuIOYlBpfqSytaDztc3ACtc</string>
+</resources>
