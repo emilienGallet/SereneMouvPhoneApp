@@ -9,9 +9,12 @@ import java.util.HashMap;
 
 import android.content.Context;
 
-public class csvFile {
+public class CsvFile {
     int column=0;
-    csvFile(){}
+    File file;
+    
+
+    public CsvFile(){}
 
     public void readfile() throws FileNotFoundException {
         //Get scanner instance
@@ -30,6 +33,9 @@ public class csvFile {
         scanner.close();
     }
     public static void main(String[] args) {
-        csvFile csvFile = new csvFile(); 
+        CsvFile csvFile = new CsvFile(); 
+        csvFile.readfile();
     }
+
+    
 }
