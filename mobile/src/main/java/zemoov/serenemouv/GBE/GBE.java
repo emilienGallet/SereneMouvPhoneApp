@@ -16,15 +16,23 @@ public class GBE {
     int nbre_pdc;
     String id_pdc;
     int puiss_max;
-    String type_prise,acces_recharge,accessibilité,observations;
-    Date date_maj;
+    String type_prise,acces_recharge,accessibilite,observations;
+    String date_maj;
     String source;
+
+    // @Override
+    // protected void onCreate(Bundle savedInstanceState) {
+    //     super.onCreate(savedInstanceState);
+    //     csvFile csvFile = new csvFile();
+    //     GBE gbe = new GBE();
+    //     csvFile.readfile();
+    // }
 
     public GBE(){}
 
     public GBE(String n_amenageur,String n_operateur,String n_enseigne,String id_station,String n_station,
         String ad_station,int code_insee,double Xlongitude,double Ylatitude,int nbre_pdc,String id_pdc,
-        int puiss_max,String type_prise,String acces_recharge,String accessibilité,String observations,Date date_maj,String source){
+        int puiss_max,String type_prise,String acces_recharge,String accessibilite,String observations,String date_maj,String source){
             this.n_amenageur=n_amenageur;//0
             this.n_operateur=n_operateur;//1
             this.n_enseigne=n_enseigne; //2
@@ -39,14 +47,14 @@ public class GBE {
             this.puiss_max=puiss_max;//11
             this.type_prise=type_prise;//12
             this.acces_recharge=acces_recharge;//13
-            this.accessibilité=accessibilité;//14
+            this.accessibilite=accessibilite;//14
             this.observations=observations;//15
             this.date_maj=date_maj;//16
             this.source=source;//17
     }
 
-    public static int main(String[] args) throws FileNotFoundException {
-        csvFile csvFile = new csvFile();
+    public static int main(String[] args) {
+        CsvFile csvFile = new CsvFile();
         GBE gbe = new GBE();
         csvFile.readfile();
         return 1;
