@@ -1,5 +1,4 @@
-package zemoov.serenemouv;
-import com.graphhopper.directions.api.client.model.RouteResponsePath;
+package zemoov.serenemouv.CPDispo;
 import com.graphhopper.directions.api.client.model.RouteResponse;
 
 import java.util.ArrayList;
@@ -31,19 +30,19 @@ public class CPDispo {
 
     /**
      * @author Émilien
-     * @param leTrajet
+     * @param unChemin
      * @param leVehicule
      * Cette méthode s'applique uniquement pour un trajet Direct !
      * Renvoie un TrajectWarning en cas d'incapacité d'atteindre le trajet
      */
-    public static void estAccessible(Trajet leTrajet, Vehicule leVehicule /*TODO : BESOIN DE LA TEMPERATURE DANS LE VEHIUCLE*/) throws CMTAWarning {
+    public static void estAccessible(Path unChemin, Vehicule leVehicule /*TODO : BESOIN DE LA TEMPERATURE DANS LE VEHIUCLE*/) throws CMTAWarning {
         //TODO Dire si la destination est accesible ou non
         //TODO Manipuler la charge en watt/heure
-        CPDispo.meth2(leVehicule.poidsCourant,leVehicule.chargeActuelle,leTrajet.unChemin);
-        if (leVehicule.chargeActuelle < leTrajet.unChemin.KwParHNecessaire){//Si la charge actuelle n'est pas assez suffisante
+        CPDispo.meth2(leVehicule.poidsCourant,leVehicule.chargeActuelle,unChemin);
+        if (leVehicule.chargeActuelle < unChemin.KwParHNecessaire){//Si la charge actuelle n'est pas assez suffisante
             if (leVehicule.puissanceDC > 0){ //Si le véhicule recharge
                 throw new CMTAWarning("La charge actuelle n'est pas suffisante");
-            }else if(leVehicule.chargeTotalPossible < leTrajet.unChemin.KwParHNecessaire){
+            }else if(leVehicule.chargeTotalPossible < unChemin.KwParHNecessaire){
                 throw new CMTAWarning("La charge même complète n'est pas suffisante. Il faudra recharger pendant le trajet");
                 // Il faut donc recharger a un autre endroit
             }else{
@@ -56,14 +55,14 @@ public class CPDispo {
 
     /**
      * @author Émilien
-     * @param leTrajet
+     * @param unChemin
      * @param leVehicule
      * @param badgesPossible
      * @throws zemoov.serenemouv.CMTA.Exceptions.TrajectException en cas d'incapacité totale d'atteindre la destination
      * @throws zemoov.serenemouv.CMTA.Exceptions.TrajectWarning en cas de vigilance particulière a avoir sur la gestion de l'énergie pour le trajet
      */
-    public static void estAccessibleParRecharge(Trajet leTrajet, Vehicule leVehicule, ArrayList<Operator> badgesPossible) throws CMTAException {
-        CPDispo.meth2(leVehicule.poidsCourant,leVehicule.chargeActuelle,leTrajet.unChemin);
+    public static void estAccessibleParRecharge(Path unChemin, Vehicule leVehicule, ArrayList<Operator> badgesPossible) throws CMTAException {
+        CPDispo.meth2(leVehicule.poidsCourant,leVehicule.chargeActuelle,unChemin);
         //TODO
         return;
     }

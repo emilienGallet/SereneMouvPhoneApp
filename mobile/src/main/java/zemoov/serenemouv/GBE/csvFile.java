@@ -1,4 +1,4 @@
-package zemoov.serenemouv;
+package zemoov.serenemouv.GBE;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,9 +1,14 @@
-package zemoov.serenemouv;
+package zemoov.serenemouv.GBE;
 
 // import java.io.File;
 // import java.io.FileNotFoundException;
-import java.util.Scanner;
- 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import zemoov.serenemouv.CMTA.Cmta;
+import zemoov.serenemouv.CMTA.Trajet;
+
 public class GBE {
     String n_amenageur,n_operateur,n_enseigne,id_station,n_station,ad_station;
     int code_insee;
@@ -53,5 +58,16 @@ public class GBE {
         GBE gbe = new GBE();
         csvFile.readfile();
         return 1;
+    }
+
+    /**
+     * Liste de borne UTILISABLE, ORDONÉE du départ jusqu'à l'arrivée
+     * @param lesConfigUser correspondant au configuration utilisateur
+     *                      (véhicule,badgesPossible,puissanceMax,puissanceMin)
+     * @return
+     */
+    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) {
+
+        return null;
     }
 }
