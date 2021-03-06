@@ -42,6 +42,10 @@ public class CsvFile {
 	}
 	
 	public static void main(String[] args) {
+		readfile();
+	}
+
+	public static void readfile() {
 		try {
 			int x=0;
 			int y =0;
@@ -60,9 +64,5 @@ public class CsvFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public void readfile() {
-		//TODO
 	}
 }

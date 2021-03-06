@@ -66,8 +66,50 @@ public class GBE {
      *                      (véhicule,badgesPossible,puissanceMax,puissanceMin)
      * @return
      */
-    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) {
+    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser,Borne borne) {
+        Borne borne2;
+        double distance, limiteDist=10;
+        ArrayList<Borne> bornesP = new ArrayList<>();
+        // on récupère les points du trajet
+        for(int i = 0 ;i< lesConfigUser.unChemin.getPoints().length;i++){
+            Position pos = lesConfigUser.unChemin.getPoints().get(0);
+            // calcul des bornes présentes dans les 10km alentours
+            distance = distance(lat1,lon1,lat2,lon2) ;
+            // borne.position.latitude && borne.position.longitude
+            if(distance < limiteDist){
+                // ajoute la ligne ds un tableau des bornes proches
 
+            }
+            
+            
+        }
+        // affiche les bornes proches
         return null;
     }
+
+    /**
+     * Calcule la distance entre 2 points géographique(lat,lng)
+     * @param lat1
+     * @param lon1
+     * @param lat2
+     * @param lon2
+     * @return double distance
+    */ 
+    public static double distance(double lat1, double lon1, double lat2, double lon2) {
+		if ((lat1 == lat2) && (lon1 == lon2)) {
+			return 0;
+		}
+		else {
+			double theta = lon1 - lon2;
+			double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) 
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+			dist = Math.acos(dist);
+			dist = Math.toDegrees(dist);
+			dist = dist * 60 * 1.1515;
+			// en KM
+			dist = dist * 1.609344;
+			
+			return dist;
+		}
+	}
 }
