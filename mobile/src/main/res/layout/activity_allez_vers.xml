@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AllezVersActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+
+        android:id="@+id/jour"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"
+        android:visibility="visible"
+        app:srcCompat="@mipmap/jour" />
+
+    <EditText
+        android:id="@+id/destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="Saisir la destination"
+        android:inputType="textPersonName"
+        android:padding="10dp" />
+
+
+
+
+    <ListView
+        android:id="@+id/destinationList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
