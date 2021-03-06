@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import zemoov.serenemouv.CMTA.Cmta;
+import zemoov.serenemouv.CMTA.Preference;
+import zemoov.serenemouv.CMTA.Vehicule;
+
 public class DestinationNameAdapter extends BaseAdapter {
 
     private Context context;
@@ -49,6 +53,7 @@ public class DestinationNameAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,curentName,Toast.LENGTH_SHORT).show();
+
             }
         });
         return convertView;

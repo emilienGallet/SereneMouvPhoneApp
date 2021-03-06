@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -122,7 +124,9 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 MenuActivity.this.mMap = googleMap;
-                mMap.moveCamera(CameraUpdateFactory.zoomBy(20));
+               // mMap.moveCamera(CameraUpdateFactory.zoomBy(5));
+                mMap.setMinZoomPreference(20);
+                mMap.setMaxZoomPreference(7);
                 mMap.setMyLocationEnabled(true);
             }
         });
@@ -136,6 +140,11 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
         if(mMap != null){
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude)));
+            mMap.clear();
+
+            mMap.addCircle(new CircleOptions().center(new LatLng(latitude,longitude))
+                    .radius(100000).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
+
         }
 
 

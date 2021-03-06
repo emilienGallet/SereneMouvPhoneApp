@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/title"
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:textSize="20dp"
+        android:textColor="@android:color/holo_red_dark"
         />
 
     <TextView

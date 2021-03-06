@@ -1,6 +1,7 @@
 package zemoov.serenemouv.CMTA;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import zemoov.serenemouv.CMTA.Exceptions.*;
 import zemoov.serenemouv.CPDispo.CPDispo;
@@ -118,6 +119,15 @@ public class Cmta {
             //TODO MAYBE changer la valeur de Bagages par la valeur du PTAC (Masse Max autoriser)
             return build(nombreDePersonnes,0,saPreference,badgesPossible,leVehicule,puissanceMax,puissanceMin,start,end,step,carrefourDangereux,travauxSector,gotOnlineCB);
     }
+
+    public static List<String> getPosibleDestinationName() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("test 1");
+        nameList.add("test 2");
+        nameList.add("test 3");
+        return  nameList;
+    }
+
     /**
      * Numéro de la spécification principal: paramètre-1
      * Numéro des spécification inclue partielement: paramètre-1.1,paramètre-1.2,paramètre-1.3

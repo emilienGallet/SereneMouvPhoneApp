@@ -1,7 +1,9 @@
 package zemoov.serenemouv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import zemoov.serenemouv.CMTA.Cmta;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,20 +23,17 @@ public class AllezVersActivity extends AppCompatActivity {
     private EditText destination;
     private ListView destinationList;
     private List<String> destinationName;
-
+private Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allez_vers);
 
         destinationName = new ArrayList<>();
-        destinationName.add("test 1");
-        destinationName.add("test 2");
-        destinationName.add("test 3");
+
 
         destinationList = (ListView) findViewById(R.id.destinationList);
 
-        destinationList.setAdapter(new DestinationNameAdapter(this,destinationName));
 
 
         destination = (EditText) findViewById(R.id.destination);
@@ -47,6 +46,12 @@ public class AllezVersActivity extends AppCompatActivity {
                     if (!event.isShiftPressed()) {
                         // the user is done typing. return true;
                         Toast.makeText(getApplicationContext(),destination.getText(),Toast.LENGTH_SHORT).show();
+                       destinationName =  Cmta.getPosibleDestinationName();
+                      //  destinationName.add("test 1");
+                      //  destinationName.add("test 2");
+                      //  destinationName.add("test 3");
+                        destinationList.setAdapter(new DestinationNameAdapter(context,destinationName));
+
                         return  true;
                         // consume.
                         }

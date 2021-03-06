@@ -17,6 +17,14 @@ public class Gb {
         //connectWithCanZE();
     }
 
+    public static boolean estConnecter() {
+        return true;
+    }
+
+    public static boolean isRecupData() {
+        return false;
+    }
+
     /**
      * @author Émilien
      * Get whole infos from the CanZE API
