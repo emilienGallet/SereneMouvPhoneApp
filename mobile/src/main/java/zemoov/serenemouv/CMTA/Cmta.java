@@ -45,11 +45,11 @@ public class Cmta {
      * @throws CMTAException
      * @throws CMTAWarning
      */
-    private static Cmta build(Integer nombreDePersonnes, Integer bagages, Preference saPreference,
+    public static Cmta build(Integer nombreDePersonnes, Integer bagages, Preference saPreference,
                       ArrayList<Operator> badgesPossible, Vehicule leVehicule,
                       Integer puissanceMax,Integer puissanceMin,
                       Localisation start, Localisation end, ArrayList<Localisation> step,
-                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB)
+                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB,Boolean peage)
             throws CMTAException,CMTAWarning {
 
             Trajet leTrajet = null;
@@ -111,20 +111,21 @@ public class Cmta {
      * @throws CMTAException
      * @throws CMTAWarning
      */
-    static Cmta build(Integer nombreDePersonnes, Preference saPreference,
+    public static Cmta build(Integer nombreDePersonnes, Preference saPreference,
                       ArrayList<Operator> badgesPossible, Vehicule leVehicule,
                       Integer puissanceMax,Integer puissanceMin,
                       Localisation start, Localisation end, ArrayList<Localisation> step,
                       Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB) throws CMTAException, CMTAWarning{
             //TODO MAYBE changer la valeur de Bagages par la valeur du PTAC (Masse Max autoriser)
-            return build(nombreDePersonnes,0,saPreference,badgesPossible,leVehicule,puissanceMax,puissanceMin,start,end,step,carrefourDangereux,travauxSector,gotOnlineCB);
+            return build(nombreDePersonnes,0,saPreference,badgesPossible,leVehicule,puissanceMax,puissanceMin,
+                    start,end,step,carrefourDangereux,travauxSector,gotOnlineCB,true);
     }
 
-    public static List<String> getPosibleDestinationName() {
-        List<String> nameList = new ArrayList<>();
-        nameList.add("test 1");
-        nameList.add("test 2");
-        nameList.add("test 3");
+    public static List<Localisation> getPosibleDestinationName(String nameLocation) {
+        List<Localisation> nameList = new ArrayList<>();
+        nameList.add(new Localisation("3 impasse berlioz 42350 La Talaudiere",45.4817, 4.43910,0));
+        nameList.add(new Localisation("4 impasse berlioz 42350 La Talaudiere",0,0,0));
+        nameList.add(new Localisation("3 impase berliose 69000 Lyon",0,0,0));
         return  nameList;
     }
 
