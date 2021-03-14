@@ -22,7 +22,7 @@ public class Gb {
     }
 
     public static boolean isRecupData() {
-        return false;
+        return true;
     }
 
     /**
