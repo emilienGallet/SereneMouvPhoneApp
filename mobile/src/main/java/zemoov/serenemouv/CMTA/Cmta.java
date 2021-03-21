@@ -123,6 +123,8 @@ public class Cmta {
 
     public static List<Localisation> getPosibleDestinationName(String nameLocation) {
         List<Localisation> nameList = new ArrayList<>();
+        //TODO recupere les vrai adresse
+
         nameList.add(new Localisation("3 impasse berlioz 42350 La Talaudiere",45.4817, 4.43910,0));
         nameList.add(new Localisation("4 impasse berlioz 42350 La Talaudiere",0,0,0));
         nameList.add(new Localisation("3 impase berliose 69000 Lyon",0,0,0));

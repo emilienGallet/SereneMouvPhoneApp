@@ -1,6 +1,7 @@
 package zemoov.serenemouv;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,11 @@ public class DestinationNameAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
+
+
+
                 AllezVersActivity.end = curentLocalisation;
-                Toast.makeText(context,curentLocalisation.getNameLocation(),Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(context,curentLocalisation.getNameLocation(),Toast.LENGTH_SHORT).show();
 
             }
         });

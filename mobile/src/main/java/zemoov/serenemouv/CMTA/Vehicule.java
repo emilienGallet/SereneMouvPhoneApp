@@ -10,7 +10,7 @@ public class Vehicule {
     public Float poidsCourant; // Poid actuel de la voiture. Par défaut c'est le PTAC
     public final Float PTAC;//en Kg
     public final Float poidAVide;//en Kg
-    public Integer maxPeoplePlace;//Prendre par défaut la valeur maximal connue du sénario choisit
+    public Integer maxPeoplePlace = 5;//Prendre par défaut la valeur maximal connue du sénario choisit
     public Double températureInterieur;
     public Double températureExterieur;
     public Integer nbPeople;
