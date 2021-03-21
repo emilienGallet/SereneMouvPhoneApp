@@ -24,6 +24,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -96,6 +97,14 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
         }
 
         destinationList = (ListView) findViewById(R.id.destinationList);
+
+        destinationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(context,"sdf",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         listOperateur = (ListView) findViewById(R.id.listoperateur);
