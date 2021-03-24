@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * parseur créé lors de l'UE interoperabilite
  */
 public class CsvFile {
+	private static GBE gbe;
 	static final String PATH = "./FileDropbox/";
 	public static ArrayList<ArrayList<String>> parseFileToCvs(String name) throws Exception {
 		BufferedReader bf = new BufferedReader(new FileReader(PATH+name));
@@ -51,11 +52,20 @@ public class CsvFile {
 			int y =0;
 			ArrayList<ArrayList<String>> a = parseFileToCvs("bornes-irve-20210220.csv");
 			for (ArrayList<String> arrayList : a) {
-				System.out.print("Ligne n°"+x+" :");
+				System.out.print("Ligne "+x+" : ");
 				x++;
+				int ct=0;
 				for (String ster : arrayList) {
+
 					System.out.print("["+y+"] = "+ ster +";");
+					if(ct==7){
+						gbe.setXlongitude(Double.valueOf(ster));
+					}
+					if(ct==8){
+						gbe.setYlatitude(Double.valueOf(ster));
+					}
 					y++;
+					ct++;
 				}
 				y=0;
 				System.out.println("");

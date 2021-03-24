@@ -2,23 +2,30 @@ package zemoov.serenemouv.GBE;
 
 // import java.io.File;
 // import java.io.FileNotFoundException;
+import com.mapbox.mapboxsdk.style.light.Position;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.graalvm.compiler.nodes.extended.GetClassNode;
+// import org.graalvm.compiler.nodes.extended.GetClassNode;
 
 import zemoov.serenemouv.CMTA.Cmta;
+import zemoov.serenemouv.CMTA.Localisation;
 import zemoov.serenemouv.CMTA.Trajet;
+import zemoov.serenemouv.GBE.CsvFile;
 
 public class GBE {
-    public String n_amenageur,n_operateur,n_enseigne,id_station,n_station,ad_station;
-    public int code_insee;
-    public double Xlongitude,Ylatitude;
-    public int nbre_pdc;
-    public String id_pdc;
-    public int puiss_max;
-    public String type_prise,acces_recharge,accessibilite,observations;
+    private static ArrayList<ArrayList<String>> borneCsv;
+
+     String n_amenageur,n_operateur,n_enseigne,id_station,n_station,ad_station;
+     int code_insee;
+     static double Xlongitude;
+     static double Ylatitude;
+     int nbre_pdc;
+     String id_pdc;
+     int puiss_max;
+     String type_prise,acces_recharge,accessibilite,observations;
 
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +113,78 @@ public class GBE {
     public double getYlatitude() {
         return Ylatitude;
     }
-    
+
+    public void setAd_station(String ad_station) {
+        this.ad_station = ad_station;
+    }
+
+    public static void setBorneCsv(ArrayList<ArrayList<String>> borneCsv) {
+        GBE.borneCsv = borneCsv;
+    }
+
+    public void setCode_insee(int code_insee) {
+        this.code_insee = code_insee;
+    }
+
+    public void setId_pdc(String id_pdc) {
+        this.id_pdc = id_pdc;
+    }
+
+    public void setId_station(String id_station) {
+        this.id_station = id_station;
+    }
+
+    public void setN_amenageur(String n_amenageur) {
+        this.n_amenageur = n_amenageur;
+    }
+
+    public void setN_enseigne(String n_enseigne) {
+        this.n_enseigne = n_enseigne;
+    }
+
+    public void setN_operateur(String n_operateur) {
+        this.n_operateur = n_operateur;
+    }
+
+    public void setN_station(String n_station) {
+        this.n_station = n_station;
+    }
+
+    public void setAcces_recharge(String acces_recharge) {
+        this.acces_recharge = acces_recharge;
+    }
+
+    public void setNbre_pdc(int nbre_pdc) {
+        this.nbre_pdc = nbre_pdc;
+    }
+
+    public void setPuiss_max(int puiss_max) {
+        this.puiss_max = puiss_max;
+    }
+
+    public void setAccessibilite(String accessibilite) {
+        this.accessibilite = accessibilite;
+    }
+
+    public void setType_prise(String type_prise) {
+        this.type_prise = type_prise;
+    }
+
+    public void setXlongitude(double xlongitude) {
+        Xlongitude = xlongitude;
+    }
+
+    public void setYlatitude(double ylatitude) {
+        Ylatitude = ylatitude;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+
+    public static ArrayList<ArrayList<String>> getBorneCsv() {
+        return borneCsv;
+    }
 
     // fct
     /**
@@ -115,22 +193,30 @@ public class GBE {
      *                      (véhicule,badgesPossible,puissanceMax,puissanceMin)
      * @return
      */
-    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) {
-        Borne borne2;
+    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) throws Exception {
+        Borne borne2 = new Borne();
         double distance, limiteDist=10;
         Cmta chemin;
+        CsvFile csvFile = null;
+        GBE gbe;
         int count=0;
         ArrayList<Borne> bornesP = new ArrayList<>();
+        borneCsv = csvFile.parseFileToCvs("bornes-irve-20210220");
+        
         // on récupère les points du trajet
-        for(int i = 0 ;i< lesConfigUser.unChemin.getPoints().length;i++){
-            Position pos = lesConfigUser.unChemin.getPoints().get(0);
-            Position posData;
+        for(int i = 0 ;i< lesConfigUser.getLeTrajet().unChemin.getPoints().size();i++){
+            Localisation pos = lesConfigUser.getLeTrajet().unChemin.getPoints().get(0);
+            Localisation posData = null;
+
             // pour chaque ligne du csv lue
-            for(int j =0;j<100;j++){
+            for(int j =0;j<borneCsv.size();j++){
                 // borne ligne j
-                posData = borne2.position.getPoints();
+                // borne2=borneCsv.get(j);
+                posData.setLongitude(Xlongitude);
+                posData.setLongitude(Ylatitude);
+                // posData = borne2.getPoints();
                 // calcul des bornes présentes dans les 10km alentours
-                distance = distance(pos.latitude,pos.longitude,posData.latitude,posData.longitude) ;
+                distance = distance(pos.getLatitude(),pos.getLongitude(),posData.getLatitude(),posData.getLongitude()) ;
                 // borne.position.latitude && borne.position.longitude
                 if(distance < limiteDist){
                     // ajoute la ligne ds un tableau des bornes proches
@@ -165,7 +251,7 @@ public class GBE {
                 + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
 			dist = Math.acos(dist);
 			dist = Math.toDegrees(dist);
-			dist = dist * 60 * 1.1515 * 1.609344; // en KM
+			dist *= 60 * 1.1515 * 1.609344; // en KM
 			return dist;
 		}
 	}

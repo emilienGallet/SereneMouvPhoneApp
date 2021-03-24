@@ -57,7 +57,7 @@ public class Cmta implements Serializable {
                       Integer puissanceMax,Integer puissanceMin,
                       Localisation start, Localisation end, ArrayList<Localisation> step,
                       Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB,Boolean peage)
-            throws CMTAException,CMTAWarning {
+            throws Exception {
 
             Trajet leTrajet = null;
             //TODO Vérifier le trajet si il est possible
@@ -122,7 +122,7 @@ public class Cmta implements Serializable {
                       ArrayList<Operator> badgesPossible, Vehicule leVehicule,
                       Integer puissanceMax,Integer puissanceMin,
                       Localisation start, Localisation end, ArrayList<Localisation> step,
-                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB) throws CMTAException, CMTAWarning{
+                      Boolean carrefourDangereux,Boolean travauxSector, Boolean gotOnlineCB) throws Exception {
             //TODO MAYBE changer la valeur de Bagages par la valeur du PTAC (Masse Max autoriser)
             return build(nombreDePersonnes,0,saPreference,badgesPossible,leVehicule,puissanceMax,puissanceMin,
                     start,end,step,carrefourDangereux,travauxSector,gotOnlineCB,true);
