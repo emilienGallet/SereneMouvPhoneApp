@@ -55,14 +55,19 @@ public class DestinationNameAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-
+                nameView.setBackgroundColor(Color.GREEN);
 
 
                 AllezVersActivity.end = curentLocalisation;
-            //    Toast.makeText(context,curentLocalisation.getNameLocation(),Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(context,curentLocalisation.getNameLocation(),Toast.LENGTH_SHORT).show();
 
             }
         });
         return convertView;
+    }
+
+    public void changeColorBackground(View view , int color){
+        TextView nameView = view.findViewById(R.id.nameD);
+        nameView.setBackgroundColor(color);
     }
 }
