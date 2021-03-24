@@ -1,8 +1,10 @@
 package zemoov.serenemouv.CMTA;
 
+import java.io.Serializable;
+
 import zemoov.serenemouv.CMTA.Exceptions.*;
 
-public class Vehicule {
+public class Vehicule implements Serializable {
 
     public static final int MAX_VALUE_SCENARIO_FULL = 1943;//en Kg
     public static final int MAX_VALUE_SCENARIO_EMPTY = 1468;//en Kg

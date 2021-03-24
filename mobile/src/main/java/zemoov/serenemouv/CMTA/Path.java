@@ -1,5 +1,6 @@
 package zemoov.serenemouv.CMTA;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *         points are coordinate.
  * Note : Ce fichier va être modifier pour prendre ne considération des spécification propre a notre projet
  */
-public class Path {
+public class Path implements Serializable {
 
 	private String name;
 	private List<Localisation> points;
@@ -19,7 +20,7 @@ public class Path {
 	public Boolean travauxSector;
 	public Integer score;
 	public Boolean asPeage;
-	public double KwParHNecessaire;
+	public Double KwParHNecessaire;
 	public Path() {
 		
 	}

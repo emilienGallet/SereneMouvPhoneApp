@@ -22,9 +22,6 @@ public class Cmta implements Serializable {
     Integer nbPersonnes; // Le nombre de personnes présente dans le véhicule pour ce trajet.
     Boolean gotOnlineCB; // Vérifie si l'utilisateur dispose d'une carte bancaire pour payer en ligne
 
-    public Cmta() {
-    }
-
     public Cmta(Vehicule engage, Integer puissanceMin, Integer puissanceMax, Trajet leTrajet, ArrayList<Operator> badgesOperateur, Integer nbPersonnes, Boolean gotOnlineCB) {
         this.engage = engage;
         this.puissanceMin = puissanceMin;

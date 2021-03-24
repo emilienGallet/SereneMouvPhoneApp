@@ -1,6 +1,8 @@
 package zemoov.serenemouv.CMTA;
 
-public enum Operator {
+import java.io.Serializable;
+
+public enum Operator implements Serializable {
     Chargemap,
     Freshmile,
     Allego,

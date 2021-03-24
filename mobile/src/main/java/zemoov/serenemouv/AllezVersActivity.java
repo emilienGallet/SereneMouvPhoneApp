@@ -261,7 +261,7 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
 
 
                             Intent intent = new Intent(AllezVersActivity.this, TrajetActivity.class);
-                            intent.putExtra("data",data);
+                            intent.putExtra("data",data.getLeTrajet().unChemin);
                             startActivity(intent);
 
                         } catch (CMTAException e) {

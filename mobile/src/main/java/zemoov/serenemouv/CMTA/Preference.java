@@ -1,6 +1,8 @@
 package zemoov.serenemouv.CMTA;
 
-public enum Preference {
+import java.io.Serializable;
+
+public enum Preference implements Serializable {
     FAST,
     ECO,
     NORMAL
