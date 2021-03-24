@@ -1,13 +1,19 @@
 package zemoov.serenemouv;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.AppComponentFactory;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.view.View;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class LaunchApp extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch_app);
-    }
+
+
+
 }
