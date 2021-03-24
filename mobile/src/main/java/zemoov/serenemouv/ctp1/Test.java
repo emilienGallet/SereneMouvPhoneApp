@@ -26,6 +26,8 @@ public class Test {
     {
         String API_KEY ="dc246c52db351dc2df2c29a84a267eb9";
         String Localisation="Lyon,FR";
+        String latitude = args[0];
+        String longitude = args[1];
         String urlString ="http://api.openweathermap.org/data/2.5/weather?q=" + Localisation +
                 "&appid" + API_KEY + "&units=imperial";
         try{
