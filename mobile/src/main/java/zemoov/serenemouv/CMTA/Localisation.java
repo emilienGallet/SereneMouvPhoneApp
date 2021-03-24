@@ -1,5 +1,6 @@
 package zemoov.serenemouv.CMTA;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @editor for the project Émilien
  * @version 0.2
  */
-public class Localisation {
+public class Localisation implements Serializable {
     private Long id;
     private String nameLocation;
     private ArrayList<Localisation> subLocalization;

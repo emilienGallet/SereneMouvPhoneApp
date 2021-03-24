@@ -4,6 +4,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import zemoov.serenemouv.CMTA.Cmta;
 import zemoov.serenemouv.CMTA.Localisation;
+import zemoov.serenemouv.CMTA.Path;
 import zemoov.serenemouv.CPDispo.CPDispo;
 
 import android.Manifest;
@@ -33,16 +34,16 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
     private LocationManager lm;
     SupportMapFragment mapFragment;
     ArrayList<Localisation> chemin;
-private Cmta data;
+    private Path data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trajet);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
          mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-         data = (Cmta) getIntent().getSerializableExtra("data");
-       chemin = (ArrayList<Localisation>) data.getLeTrajet().unChemin.getPoints();
-      Toast.makeText(this,chemin.get(0).getLatitude()+"",Toast.LENGTH_SHORT).show();
+         data = (Path) getIntent().getSerializableExtra("data");
+       //chemin = (ArrayList<Localisation>) data.getLeTrajet().unChemin.getPoints();
+      Toast.makeText(this,data.getPoints().toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override

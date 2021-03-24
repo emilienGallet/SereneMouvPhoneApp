@@ -6,12 +6,13 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Temperature {
+public class Temperature implements Serializable {
     public Double tempEnC;
 
     public Temperature(Double temp) {
