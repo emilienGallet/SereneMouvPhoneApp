@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+import zemoov.serenemouv.CPDispo.CPDispo;
 
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -142,8 +143,10 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude)));
             mMap.clear();
 
+            double portee = CPDispo.getPortee();
+
             mMap.addCircle(new CircleOptions().center(new LatLng(latitude,longitude))
-                    .radius(100000/*TODO DEMANDER PORT2E DISPONIBLE*/).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
+                    .radius(portee/*TODO DEMANDER PORT2E DISPONIBLE*/).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
 
         }
 

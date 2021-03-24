@@ -60,10 +60,7 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
     private Context context = this;
 
     private ListView listOperateur;
-    // private ExpandableListView listOperateur;
     private List<String> operateurName;
-    // List<String> expandableListTitle;
-    // HashMap<String, List<String>> expandableListDetail;
 
     private SeekBar puissanceBorneMin;
     private TextView puissance;
@@ -99,21 +96,16 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
 
         destinationList = (ListView) findViewById(R.id.destinationList);
 
+
         destinationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(context,"sdf",Toast.LENGTH_SHORT).show();
+                TextView nameView = view.findViewById(R.id.nameD);
+                nameView.setBackgroundColor(Color.GREEN);
             }
         });
 
-
         listOperateur = (ListView) findViewById(R.id.listoperateur);
-        // expandableListDetail = new HashMap<>();
-        // expandableListTitle = new ArrayList<>();
-        // expandableListTitle.add("Liste des operateurs");
-        // expandableListDetail.put("Liste des operateurs", operateurName);
-        //listOperateur.setAdapter(new ExpemdableOperateurNameAdapter(context,expandableListTitle,expandableListDetail));
 
         listOperateur.setAdapter(new OperateurNameAdapter(context, operateurName));
         destination = (EditText) findViewById(R.id.destination);
