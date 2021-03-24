@@ -21,6 +21,8 @@ public class Vehicule {
     public Vehicule(){
         this.PTAC = Float.valueOf(MAX_VALUE_SCENARIO_FULL);
         this.poidAVide = Float.valueOf(MAX_VALUE_SCENARIO_EMPTY);
+        this.poidsCourant = poidAVide;
+        this.chargeActuelle = 0d;
     }
 
     /**

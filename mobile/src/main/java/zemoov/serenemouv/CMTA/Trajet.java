@@ -49,6 +49,7 @@ public class Trajet {
     public static Trajet trajectBuilder(Localisation start, Localisation end, List<Localisation> step, Preference saPreference, Boolean carrefourDangereux, Boolean travauxSector) throws TrajectException {
         Trajet leTrajet = new Trajet(saPreference);
         Path unChemin = Graph.planTraject(start,end,step);//TODO vérifier carrefour dangereux et sa préférence
+        leTrajet.unChemin = unChemin;
         return leTrajet;
     }
 

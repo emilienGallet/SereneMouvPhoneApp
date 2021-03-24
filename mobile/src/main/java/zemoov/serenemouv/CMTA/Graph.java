@@ -45,30 +45,6 @@ public class Graph {
 		Log.i("ALORS",urlTravel(start, end/*TODO EDIT THIS HERE paramètre-7*/));
 		String s;
 		try {
-
-Runnable runnable = new Runnable() {
-	@Override
-	public synchronized void run() {
-		Request request = new Request.Builder()
-				.url(urlTravel(start,end))
-				.build();
-
-		client.newCall(request).enqueue(new Callback() {
-			@Override public void onFailure(Call call, IOException e) {
-				e.printStackTrace();
-			}
-
-			@Override public void onResponse(Call call, Response response) throws IOException {
-				try (ResponseBody responseBody = response.body()) {
-					if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-					System.out.println(responseBody.string());
-				}
-			}
-		});
-	}
-};
-			runnable.run();
-runnable.wait();
 			response = client.newCall(request).execute();
 
 			s = response.body().string();
@@ -78,7 +54,7 @@ runnable.wait();
 			JSONArray jsArry = pointsListCoordinates(json);
 			//TODO convert JSONArray to ArrayList<Localization>
 			return new Path(JsonArrayToList(jsArry),time);
-		} catch (IOException | JSONException | InterruptedException e) {
+		} catch (IOException | JSONException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;

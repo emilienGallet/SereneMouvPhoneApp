@@ -143,7 +143,7 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             mMap.clear();
 
             mMap.addCircle(new CircleOptions().center(new LatLng(latitude,longitude))
-                    .radius(100000).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
+                    .radius(100000/*TODO DEMANDER PORT2E DISPONIBLE*/).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
 
         }
 

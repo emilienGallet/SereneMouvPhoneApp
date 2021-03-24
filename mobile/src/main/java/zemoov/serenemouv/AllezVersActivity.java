@@ -45,6 +45,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 public class AllezVersActivity extends AppCompatActivity implements LocationListener {
 
@@ -244,29 +245,33 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
         btnValider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ForkJoinPool thread = new ForkJoinPool();
+                thread.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Cmta.build(nbPersonSeekBar.getProgress(),
+                                    poidBagageSeekBar.getProgress(),
+                                    pref,
+                                    badges,
+                                    new Vehicule(),
+                                    43,
+                                    puissanceBorneMin.getProgress(),
+                                    start,
+                                    end,
+                                    null,
+                                    false,
+                                    false,
+                                    true,
+                                    peage.isChecked());
+                        } catch (CMTAException e) {
+                            e.printStackTrace();
+                        } catch (CMTAWarning cmtaWarning) {
+                            cmtaWarning.printStackTrace();
+                        }
+                    }
+                });
              //   Toast.makeText(context,end.getNameLocation(),Toast.LENGTH_SHORT).show();
-
-               try {
-                    Cmta.build(nbPersonSeekBar.getProgress(),
-                            poidBagageSeekBar.getProgress(),
-                            pref,
-                            badges,
-                            new Vehicule(),
-                            43,
-                            puissanceBorneMin.getProgress(),
-                            start,
-                            end,
-                            null,
-                            false,
-                            false,
-                            true,
-                            peage.isChecked());
-                } catch (CMTAException e) {
-                    e.printStackTrace();
-                } catch (CMTAWarning cmtaWarning) {
-                    cmtaWarning.printStackTrace();
-                }
             }
         });
     }
