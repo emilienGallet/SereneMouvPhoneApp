@@ -12,6 +12,7 @@ import zemoov.serenemouv.CMTA.Vehicule;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Path;
@@ -242,7 +243,7 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
                     @Override
                     public void run() {
                         try {
-                            Cmta.build(nbPersonSeekBar.getProgress(),
+                         Cmta data =   Cmta.build(nbPersonSeekBar.getProgress(),
                                     poidBagageSeekBar.getProgress(),
                                     pref,
                                     badges,
@@ -256,6 +257,13 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
                                     false,
                                     true,
                                     peage.isChecked());
+
+
+
+                            Intent intent = new Intent(AllezVersActivity.this, TrajetActivity.class);
+                            intent.putExtra("data",data);
+                            startActivity(intent);
+
                         } catch (CMTAException e) {
                             e.printStackTrace();
                         } catch (CMTAWarning cmtaWarning) {
