@@ -17,6 +17,7 @@ public class Temperature {
     public Temperature(Double temp) {
         this.tempEnC = temp;
     }
+
     public static Map<String,Object> jsonToMap(String str){
         Map<String,Object> map = new Gson().fromJson(
                 str,new TypeToken<HashMap<String,Object>>() {}.getType());
@@ -24,13 +25,13 @@ public class Temperature {
     }
 
 
-    public  static Double getTemperatureAtLocalisation(Localisation localisation){
+    public  static void getTemperatureAtLocalisation(Localisation localisation){
         String API_KEY ="dc246c52db351dc2df2c29a84a267eb9";
         String Localisation= localisation.getNameLocation();
         String latitude = localisation.getLatitude().toString();
         String longitude = localisation.getLongitude().toString();
-        String urlString ="http://api.openweathermap.org/data/2.5/weather?q=" + Localisation +
-                "&appid" + API_KEY + "&units=imperial";
+        //api.openweathermap.org/data/2.5/find?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
+        String urlString ="http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&units=metric"+"&appid=" + API_KEY;
         try{
             StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
@@ -50,7 +51,7 @@ public class Temperature {
             System.out.println("Temperature Courant :" +mainMap.get("temp"));
 
         }catch(IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
