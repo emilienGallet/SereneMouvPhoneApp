@@ -1,5 +1,6 @@
 package zemoov.serenemouv.CMTA;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import zemoov.serenemouv.GBE.GBE;
 /**
  * @author emilien
  */
-public class Cmta {
+public class Cmta implements Serializable {
     // REMOVED Preference saPreference; // Préférence du Trajet voir Preference.java
     Vehicule engage; // Le véhicule qui va être utiliser pour le trajet.
     Integer puissanceMin; // La puissance minimal de rechargement du véhicule exigé par l'utilisateur
@@ -21,11 +22,17 @@ public class Cmta {
     Integer nbPersonnes; // Le nombre de personnes présente dans le véhicule pour ce trajet.
     Boolean gotOnlineCB; // Vérifie si l'utilisateur dispose d'une carte bancaire pour payer en ligne
 
-    public Cmta(Vehicule leVehicule, Integer puissanceMax, Integer puissanceMin,
-                Trajet leTrajet, ArrayList<Operator> badgesPossible,
-                Integer nombreDePersonnes, Boolean gotOnlineCB) {
-        super();
-        //TODO
+    public Cmta() {
+    }
+
+    public Cmta(Vehicule engage, Integer puissanceMin, Integer puissanceMax, Trajet leTrajet, ArrayList<Operator> badgesOperateur, Integer nbPersonnes, Boolean gotOnlineCB) {
+        this.engage = engage;
+        this.puissanceMin = puissanceMin;
+        this.puissanceMax = puissanceMax;
+        this.leTrajet = leTrajet;
+        this.badgesOperateur = badgesOperateur;
+        this.nbPersonnes = nbPersonnes;
+        this.gotOnlineCB = gotOnlineCB;
     }
 
     /**
@@ -153,4 +160,7 @@ public class Cmta {
         this.leTrajet.saPreference =p;
     }
 
+    public Trajet getLeTrajet() {
+        return leTrajet;
+    }
 }

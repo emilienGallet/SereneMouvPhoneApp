@@ -42,13 +42,13 @@ public class Temperature {
                 result.append(line);
             }
             rd.close();
-            System.out.println(result);
+            //System.out.println(result);
 
             Map<String, Object>respMap = jsonToMap(result.toString());
             Map<String, Object>mainMap = jsonToMap(respMap.get("main").toString());
 
             localisation.actuelle = new Temperature((Double)mainMap.get("temp"));
-            System.out.println("Temperature Courant :" +mainMap.get("temp"));
+           // System.out.println("Temperature Courant :" +mainMap.get("temp"));
 
         }catch(IOException e) {
             e.printStackTrace();
