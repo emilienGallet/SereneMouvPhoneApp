@@ -8,9 +8,9 @@ import android.content.pm.PackageManager;
  * Module GB
  */
 public class Gb {
-    private Double capacityBattery; //kw
-    private Double curentCapacityBattery; //kw
-    private Double puissanceInstantanee;//kw
+    private static Double capacityBattery = 16.6; //kw
+    private static Double curentCapacityBattery = 6.0; //kw
+    private static Double puissanceInstantanee = 0.0;//kw
 
     public Gb(){
         super();
@@ -22,7 +22,7 @@ public class Gb {
     }
 
     public static boolean isRecupData() {
-        return false;
+        return true;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Gb {
      * @author Emilien
      * @return curent capacity of this battery.
      */
-    public Double getCurentCapacityBattery() {
+    public static Double getCurentCapacityBattery() {
         return curentCapacityBattery;
     }
     /**

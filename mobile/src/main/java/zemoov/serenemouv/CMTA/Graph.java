@@ -1,5 +1,9 @@
 package zemoov.serenemouv.CMTA;
 
+import android.accounts.NetworkErrorException;
+import android.os.NetworkOnMainThreadException;
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +13,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * 
@@ -19,6 +28,7 @@ import okhttp3.Response;
  * Source code taken from IConvoit (https://github.com/emilienGallet/IConvoit). And also is my code ^_^
  */
 public class Graph {
+	public static Response response = null;
 
 	public static Path planTraject(Localisation start, Localisation end, List<Localisation> step) {
 		/*
@@ -31,12 +41,12 @@ public class Graph {
 		 * https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 		 */
 		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlTravel(start, end/*TODO EDIT THIS HERE paramètre-7*/)).get().build();
-		Response response = null;
+		Request request = new Request.Builder().url(urlTravel(start, end)).get().build();
+		Log.i("ALORS",urlTravel(start, end/*TODO EDIT THIS HERE paramètre-7*/));
 		String s;
 		try {
 			response = client.newCall(request).execute();
-			/* END code from graphHooper */
+
 			s = response.body().string();
 			JSONObject json = new JSONObject(s);
 			//System.err.println(json.toString());
@@ -44,7 +54,7 @@ public class Graph {
 			JSONArray jsArry = pointsListCoordinates(json);
 			//TODO convert JSONArray to ArrayList<Localization>
 			return new Path(JsonArrayToList(jsArry),time);
-		} catch (IOException | JSONException e) {
+		} catch (IOException | JSONException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;

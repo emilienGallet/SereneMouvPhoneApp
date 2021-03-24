@@ -1,4 +1,6 @@
 package zemoov.serenemouv.CPDispo;
+import android.util.Log;
+
 import com.graphhopper.directions.api.client.model.RouteResponse;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import zemoov.serenemouv.CMTA.Path;
 import zemoov.serenemouv.CMTA.Temperature;
 import zemoov.serenemouv.CMTA.Trajet;
 import zemoov.serenemouv.CMTA.Vehicule;
+import zemoov.serenemouv.GB.Gb;
 
 
 public class CPDispo {
@@ -121,8 +124,10 @@ public class CPDispo {
         //vitesse en m/s fixé a 20 km/h qui est la limitation minimal en france
         int v=20000/3600; // 20km/h en m/s
         instantCharge=poidTotal*g*k*v +1/2*p*SCx*v*3;// La formule
-
+        Log.i("Résultat de la formule:", String.valueOf(instantCharge));
         for (Localisation l : leChemin.getPoints()){
+
+            Temperature.getTemperatureAtLocalisation(l);
             Temperature t =  l.actuelle;//TODO A modifier par getTempérature();
             if (t.tempEnC<=10){
                 //TODO Besoin d'une coordination avec Christian.
@@ -145,6 +150,13 @@ public class CPDispo {
 
         leChemin.KwParHNecessaire = chUnderTenDegre+chAboveTenDegre;
     }
+
+    public static double getPortee() {
+
+
+        return 100000;
+    }
+
     //Données en entrée:
     // liste de données de données du trajet
     // liste de données des températures prévisionnelles sur le trajet

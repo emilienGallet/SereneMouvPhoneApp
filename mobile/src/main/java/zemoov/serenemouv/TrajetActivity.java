@@ -1,24 +1,19 @@
 package zemoov.serenemouv;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
+import zemoov.serenemouv.CMTA.Cmta;
+import zemoov.serenemouv.CMTA.Localisation;
 import zemoov.serenemouv.CPDispo.CPDispo;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,56 +24,25 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MenuActivity extends AppCompatActivity implements LocationListener {
-    private  static  final int PERMS_CALL_ID = 1234;
-    private Button btnAllezVers;
-    private Button btnHistorique;
-    private ImageButton btnJour;
+import java.util.ArrayList;
+
+public class TrajetActivity extends FragmentActivity implements LocationListener {
+    private  static  final int PERMS_CALL_ID2 = 1234;
+
     private GoogleMap mMap;
     private LocationManager lm;
     SupportMapFragment mapFragment;
-
+    ArrayList<Localisation> chemin;
+private Cmta data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_trajet);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView2);
-
-
-        btnAllezVers = (Button) findViewById(R.id.allez_vers);
-        btnHistorique = (Button) findViewById(R.id.historique);
-        btnJour = (ImageButton) findViewById(R.id.jour);
-
-        btnAllezVers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent allezVersActivity = new Intent(MenuActivity.this, AllezVersActivity.class);
-                startActivity(allezVersActivity);
-
-            }
-        });
-
-        btnHistorique.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent historiqueActivity = new Intent(MenuActivity.this, HistoriqueActivity.class);
-                startActivity(historiqueActivity);
-            }
-        });
-
-        btnJour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                recreate();
-           //     setTheme(darkTheme ? R.style.AppThemeDark : R.style.AppThemeLight);
-            }
-        });
+         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+         data = (Cmta) getIntent().getSerializableExtra("data");
+       chemin = (ArrayList<Localisation>) data.getLeTrajet().unChemin.getPoints();
+      Toast.makeText(this,chemin.get(0).getLatitude()+"",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,7 +58,7 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION},PERMS_CALL_ID);
+                    Manifest.permission.ACCESS_FINE_LOCATION},PERMS_CALL_ID2);
             return;
         }
 
@@ -124,8 +88,8 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                MenuActivity.this.mMap = googleMap;
-               // mMap.moveCamera(CameraUpdateFactory.zoomBy(5));
+                TrajetActivity.this.mMap = googleMap;
+                // mMap.moveCamera(CameraUpdateFactory.zoomBy(5));
                 mMap.setMinZoomPreference(20);
                 mMap.setMaxZoomPreference(7);
                 mMap.setMyLocationEnabled(true);
@@ -143,10 +107,7 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude)));
             mMap.clear();
 
-            double portee = CPDispo.getPortee();
 
-            mMap.addCircle(new CircleOptions().center(new LatLng(latitude,longitude))
-                    .radius(portee/*TODO DEMANDER PORT2E DISPONIBLE*/).fillColor(Color.argb(50,0,50,0)).strokeColor(Color.BLUE).strokeWidth(2));
 
         }
 
@@ -167,4 +128,5 @@ public class MenuActivity extends AppCompatActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
+
 }
