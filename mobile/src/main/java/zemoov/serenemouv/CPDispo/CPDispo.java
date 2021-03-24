@@ -1,4 +1,6 @@
 package zemoov.serenemouv.CPDispo;
+import android.util.Log;
+
 import com.graphhopper.directions.api.client.model.RouteResponse;
 
 import java.util.ArrayList;
@@ -121,7 +123,7 @@ public class CPDispo {
         //vitesse en m/s fixé a 20 km/h qui est la limitation minimal en france
         int v=20000/3600; // 20km/h en m/s
         instantCharge=poidTotal*g*k*v +1/2*p*SCx*v*3;// La formule
-
+        Log.i("Résultat de la formule:", String.valueOf(instantCharge));
         for (Localisation l : leChemin.getPoints()){
             Temperature t =  l.actuelle;//TODO A modifier par getTempérature();
             if (t.tempEnC<=10){
