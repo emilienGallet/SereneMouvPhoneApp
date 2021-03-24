@@ -24,6 +24,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,8 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
     SupportMapFragment mapFragment;
     ArrayList<Localisation> chemin;
     private Path data;
+    private ArrayList<LatLng>  dataTrajet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +46,8 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
          mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
          data = (Path) getIntent().getSerializableExtra("data");
-       //chemin = (ArrayList<Localisation>) data.getLeTrajet().unChemin.getPoints();
-      Toast.makeText(this,data.getPoints().toString(),Toast.LENGTH_SHORT).show();
+        transformePathToLongLat();
+
     }
 
     @Override
@@ -90,9 +94,9 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 TrajetActivity.this.mMap = googleMap;
-                // mMap.moveCamera(CameraUpdateFactory.zoomBy(5));
+               //  mMap.moveCamera(CameraUpdateFactory.zoomBy(5));
                 mMap.setMinZoomPreference(20);
-                mMap.setMaxZoomPreference(7);
+                mMap.setMaxZoomPreference(20);
                 mMap.setMyLocationEnabled(true);
             }
         });
@@ -102,13 +106,17 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
     public void onLocationChanged(Location location) {
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-        Toast.makeText(this,"lat "+latitude+"  long "+longitude,Toast.LENGTH_LONG);
+    //    Toast.makeText(this,"lat "+latitude+"  long "+longitude,Toast.LENGTH_LONG);
         if(mMap != null){
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude)));
             mMap.clear();
 
-
+            PolylineOptions polylineOptions = new PolylineOptions();
+            for (LatLng latLng : dataTrajet ) {
+                polylineOptions.add(latLng);
+            }
+            Polyline polyline = mMap.addPolyline(polylineOptions);
 
         }
 
@@ -128,6 +136,13 @@ public class TrajetActivity extends FragmentActivity implements LocationListener
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public void transformePathToLongLat(){
+        dataTrajet = new ArrayList<>();
+        for (Localisation point : data.getPoints()) {
+                dataTrajet.add(new LatLng(point.getLatitude(),point.getLongitude()));
+        }
     }
 
 }
