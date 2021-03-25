@@ -127,9 +127,11 @@ public class CPDispo {
         Log.i("Résultat de la formule:", String.valueOf(instantCharge));
         for (Localisation l : leChemin.getPoints()){
 
-            Temperature.getTemperatureAtLocalisation(l);
+
+            //Temperature.getTemperatureAtLocalisation(l);
+            l.actuelle = new Temperature(20.0);
             Temperature t =  l.actuelle;//TODO A modifier par getTempérature();
-            if (t.tempEnC<=10){
+            if (t == null || t.tempEnC == null || t.tempEnC<=10){
                 //TODO Besoin d'une coordination avec Christian.
                 // Soit on a la température a chaque localisation (Coordonées géographique)
                 // Soit on l'a que pour un certain intervale

@@ -1,9 +1,19 @@
 package zemoov.serenemouv.CMTA;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import zemoov.serenemouv.CMTA.Exceptions.*;
 import zemoov.serenemouv.CPDispo.CPDispo;
 import zemoov.serenemouv.GBE.Borne;
@@ -129,10 +139,51 @@ public class Cmta implements Serializable {
         List<Localisation> nameList = new ArrayList<>();
         //TODO recupere les vrai adresse
 
-        nameList.add(new Localisation("3 impasse berlioz 42350 La Talaudiere",45.4817, 4.43910,0));
-        nameList.add(new Localisation("4 impasse berlioz 42350 La Talaudiere",0,0,0));
-        nameList.add(new Localisation("3 impase berliose 69000 Lyon",0,0,0));
-        return  nameList;
+        /**
+         * Code from : https://docs.graphhopper.com/#tag/Routing-API little bit edited
+         * for our API Need to add
+         * https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+         */
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("https://api-adresse.data.gouv.fr/search/?q="+nameLocation).get().build();
+        String s;
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+
+            s = response.body().string();
+            JSONObject json = new JSONObject(s);
+            //System.err.println(json.toString());
+            JSONArray jsArry =  json.getJSONArray("features");
+            return get3PremierMax(jsArry);
+        } catch (IOException | JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return nameList;
+        }
+
+        //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+       // nameList.add(new Localisation("3 impasse berlioz 42350 La Talaudiere",45.4817, 4.43910,0));
+       // nameList.add(new Localisation("4 impasse berlioz 42350 La Talaudiere",0,0,0));
+       // nameList.add(new Localisation("3 impase berliose 69000 Lyon",0,0,0));
+       // return  nameList;
+    }
+
+    private static List<Localisation> get3PremierMax(JSONArray jsArry) {
+        List<Localisation> nameList = new ArrayList<>();
+        try {
+            for (int i = 0 ; i<3 ;i++){
+                double latitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(0);
+                double longitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(1);;
+                double hauteur = 0;
+                String nameLocation = jsArry.getJSONObject(i).getJSONObject("properties").getString("label");
+                nameList.add(new Localisation(nameLocation,latitude,longitude,hauteur));
+            }
+        }catch (Exception e){
+            return nameList;
+        }
+        return nameList;
     }
 
     /**

@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 
 public class AllezVersActivity extends AppCompatActivity implements LocationListener {
 
@@ -113,22 +114,36 @@ public class AllezVersActivity extends AppCompatActivity implements LocationList
         destination.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                //TODO jvgkhjhv;<wdfbjkh:fzse N/L?§VX<WCBN/KXCXWFBJNK/FVXNJKL§FSBMKLFDSGK?MJSF<DJNLSFDJNL§DFQESJNK/FDS<
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     if (!event.isShiftPressed()) {
-                        // the user is done typing. return true;
-                        Toast.makeText(getApplicationContext(), destination.getText(), Toast.LENGTH_SHORT).show();
-                        destinationName = Cmta.getPosibleDestinationName(destination.getText().toString());
-                        //  destinationName.add("test 1");
-                        //  destinationName.add("test 2");
-                        //  destinationName.add("test 3");
-                        destinationList.setAdapter(new DestinationNameAdapter(context, destinationName));
 
+                        ForkJoinPool thread = new ForkJoinPool();
+                        thread.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                // the user is done typing. return true;
+                                //Toast.makeText(getApplicationContext(), destination.getText(), Toast.LENGTH_SHORT).show();
+                                destinationName = Cmta.getPosibleDestinationName(destination.getText().toString());
+                                //  destinationName.add("test 1");
+                                //  destinationName.add("test 2");
+                                //  destinationName.add("test 3");
+                                //destinationList.setAdapter(new DestinationNameAdapter(context, destinationName));
+                            }
+                        });
+                        try {
+                            thread.awaitTermination(3, TimeUnit.SECONDS);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        destinationList.setAdapter(new DestinationNameAdapter(context, destinationName));
                         return true;
                         // consume.
                     }
                 }
+
 
                 return false;
             }
