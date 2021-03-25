@@ -1,5 +1,6 @@
 package zemoov.serenemouv.CMTA;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import zemoov.serenemouv.GBE.Borne;
  * Il n'y a pas de subdivision de trajet en sous trajet.
  * En effet cette subdivision est appeler un Path dont la somme de celles-ci forme le Path global soit le Trajet.
  */
-public class Trajet {
+public class Trajet implements Serializable {
     public Preference saPreference;
     public Path unChemin;//Contien une liste de localisation(depart,arrivée inclut) +temps de trajet.
     public LocalDateTime timeStart;

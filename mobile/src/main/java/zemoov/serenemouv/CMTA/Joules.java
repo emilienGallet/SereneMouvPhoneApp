@@ -1,5 +1,7 @@
 package zemoov.serenemouv.CMTA;
 
-public class Joules {
+import java.io.Serializable;
+
+public class Joules implements Serializable {
     Double value;
 }
