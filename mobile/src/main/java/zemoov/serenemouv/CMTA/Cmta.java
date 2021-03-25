@@ -174,8 +174,8 @@ public class Cmta implements Serializable {
         List<Localisation> nameList = new ArrayList<>();
         try {
             for (int i = 0 ; i<3 ;i++){
-                double latitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(0);
-                double longitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(1);;
+                double latitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(1);
+                double longitude = jsArry.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(0);;
                 double hauteur = 0;
                 String nameLocation = jsArry.getJSONObject(i).getJSONObject("properties").getString("label");
                 nameList.add(new Localisation(nameLocation,latitude,longitude,hauteur));
