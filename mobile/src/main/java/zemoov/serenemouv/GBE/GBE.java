@@ -193,7 +193,7 @@ public class GBE {
      *                      (véhicule,badgesPossible,puissanceMax,puissanceMin)
      * @return
      */
-    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) throws Exception {
+    public static ArrayList<Borne> bornesAutourDuTrajet(Cmta lesConfigUser) {
         Borne borne2 = new Borne();
         double distance, limiteDist=10;
         Cmta chemin;
@@ -201,8 +201,13 @@ public class GBE {
         GBE gbe;
         int count=0;
         ArrayList<Borne> bornesP = new ArrayList<>();
-        borneCsv = csvFile.parseFileToCvs("bornes-irve-20210220");
-        
+        try {
+            borneCsv = csvFile.parseFileToCvs("bornes-irve-20210220");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return bornesP;
+        }
+
         // on récupère les points du trajet
         for(int i = 0 ;i< lesConfigUser.getLeTrajet().unChemin.getPoints().size();i++){
             Localisation pos = lesConfigUser.getLeTrajet().unChemin.getPoints().get(0);
