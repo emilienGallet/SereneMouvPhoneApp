@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllezVersActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+
+                android:id="@+id/jour"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                app:srcCompat="@mipmap/jour" />
+
+            <EditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:hint="Saisir la destination"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+            <ListView
+                android:id="@+id/destinationList"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            </ListView>
+
+            <CheckBox
+                android:id="@+id/peage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eviter péage ?" />
+
+
+            <ListView
+                android:id="@+id/listoperateur"
+                android:layout_width="match_parent"
+                android:layout_height="515dp">
+
+            </ListView>
+
+            <RadioGroup
+                android:id="@+id/preference"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/econome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Le plus econome" />
+
+                <RadioButton
+                    android:id="@+id/rapide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Le plus rapide" />
+
+                <RadioButton
+                    android:id="@+id/equilibre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Equilibré" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Puissance minimal de la borne" />
+
+                <TextView
+                    android:id="@+id/puissance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right"
+                    android:text="3 Kw" />
+            </LinearLayout>
+
+
+            <SeekBar
+                android:id="@+id/puissance_minimal_borne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Nombre de personne dans la voiture" />
+
+                <TextView
+                    android:id="@+id/nbPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right"
+                    android:text="1" />
+
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/nbPersonSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Poid des bagages"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:id="@+id/poidBagage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=" 0 Kg"
+                    android:gravity="right"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/poidBagageSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+
+            <Button
+                android:id="@+id/buttonValider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valider" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
