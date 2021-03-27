@@ -22,7 +22,7 @@ public class LaunchApp extends AppCompatActivity {
     ProgressBar progressBar;
     Runnable runnable;
     Activity activity = this;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
